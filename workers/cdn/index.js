@@ -1,0 +1,188 @@
+/*
+ * Copyright 2022 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+
+
+import { WorkerEntrypoint } from 'cloudflare:workers';
+import {
+  applyGatingIfNeeded,
+  canContainGatedHtml,
+  copyAnonymousCacheability,
+  isAnonymousCacheable,
+} from './handlers/gating.js';
+import { isAuthenticated } from './handlers/auth-check.js';
+import { DEMO_SESSION_COOKIE } from '../shared/demo-session.js';
+
+const getExtension = (path) => {
+  const basename = path.split('/').pop();
+  const pos = basename.lastIndexOf('.');
+  if (basename === '.json') return 'json';
+  return (basename === '' || pos < 1) ? '' : basename.slice(pos + 1);
+};
+
+const isMediaRequest = (url) => /\/media_[0-9a-f]{40,}[/a-zA-Z0-9_-]*\.[0-9a-z]+$/.test(url.pathname);
+const isRUMRequest = (url) => /\/\.(rum|optel)\/.*/.test(url.pathname);
+
+const fetchOrigin = (request) => fetch(request, {
+  method: request.method,
+  cf: {
+    // cf doesn't cache html by default: need to override the default behavior
+    cacheEverything: true,
+  },
+});
+
+const handleRequest = async (request, env) => {
+  const requestURL = new URL(request.url);
+  const url = new URL(request.url);
+  if (url.port) {
+    // Cloudflare opens a couple more ports than 443, so we redirect visitors
+    // to the default port to avoid confusion.
+    // https://developers.cloudflare.com/fundamentals/reference/network-ports/#network-ports-compatible-with-cloudflares-proxy
+    const redirectTo = new URL(request.url);
+    redirectTo.port = '';
+    return new Response(`Moved permanently to ${redirectTo.href}`, {
+      status: 301,
+      headers: {
+        location: redirectTo.href,
+      },
+    });
+  }
+
+  if (url.pathname.startsWith('/drafts/')) {
+    return new Response('Not Found', { status: 404 });
+  }
+
+  if (requestURL.pathname === '/index.json') {
+    requestURL.pathname = '/.json';
+    url.pathname = '/.json';
+  }
+
+  if (isRUMRequest(url)) {
+    // only allow GET, POST, OPTIONS
+    if (!['GET', 'POST', 'OPTIONS'].includes(request.method)) {
+      return new Response('Method Not Allowed', { status: 405 });
+    }
+  }
+
+  const extension = getExtension(url.pathname);
+
+  // remember original search params
+  const savedSearch = url.search;
+
+  // sanitize search params
+  const { searchParams } = url;
+  if (isMediaRequest(url)) {
+    for (const [key] of searchParams.entries()) {
+      if (!['format', 'height', 'optimize', 'width'].includes(key)) {
+        searchParams.delete(key);
+      }
+    }
+  } else if (extension === 'json') {
+    for (const [key] of searchParams.entries()) {
+      if (!['limit', 'offset', 'sheet'].includes(key)) {
+        searchParams.delete(key);
+      }
+    }
+  } else {
+    // neither media nor json request: strip search params
+    url.search = '';
+  }
+  searchParams.sort();
+
+  // This site's origin is *.aem.network, so .network is allowed as well as .live.
+  url.hostname = env.ORIGIN_HOSTNAME;
+  url.protocol = 'https:';
+  url.port = '';
+  if (!url.origin.match(/^https:\/\/main--.*--.*\.(?:aem|hlx)\.(?:live|network)$/)) {
+    return new Response('Invalid ORIGIN_HOSTNAME', { status: 500 });
+  }
+  const req = new Request(url, request);
+  req.headers.set('x-forwarded-host', req.headers.get('host'));
+  req.headers.set('x-byo-cdn-type', 'cloudflare');
+  if (req.headers.has('cookie')) {
+    const cookies = req.headers.get('cookie').split(';')
+      .filter((part) => part.slice(0, part.indexOf('=')).trim() !== DEMO_SESSION_COOKIE)
+      .map((part) => part.trim())
+      .filter(Boolean)
+      .join('; ');
+    if (cookies) req.headers.set('cookie', cookies);
+    else req.headers.delete('cookie');
+  }
+  if (env.PUSH_INVALIDATION !== 'disabled') {
+    req.headers.set('x-push-invalidation', 'enabled');
+  }
+  if (env.ORIGIN_AUTHENTICATION) {
+    req.headers.set('authorization', `token ${env.ORIGIN_AUTHENTICATION}`);
+  }
+  let resp = await fetchOrigin(req);
+
+  resp = await applyGatingIfNeeded(request, requestURL, resp, () => {
+    const fullRequest = new Request(req, { method: 'GET' });
+    [
+      'Range', 'If-Range', 'If-None-Match', 'If-Modified-Since', 'If-Match', 'If-Unmodified-Since',
+    ].forEach((name) => fullRequest.headers.delete(name));
+    return fetchOrigin(fullRequest);
+  });
+
+  const finalResponse = new Response(request.method === 'HEAD' ? null : resp.body, resp);
+  copyAnonymousCacheability(resp, finalResponse);
+  resp = finalResponse;
+  if (resp.status === 301 && savedSearch) {
+    const location = resp.headers.get('location');
+    if (location && !location.match(/\?.*$/)) {
+      resp.headers.set('location', `${location}${savedSearch}`);
+    }
+  }
+  if (resp.status === 304) {
+    // 304 Not Modified - remove CSP header
+    resp.headers.delete('Content-Security-Policy');
+  }
+  resp.headers.delete('age');
+  resp.headers.delete('x-robots-tag');
+  return resp;
+};
+
+export class Anonymous extends WorkerEntrypoint {
+  async fetch(request) {
+    const response = await handleRequest(request, this.env);
+    const cacheable = isAnonymousCacheable(response);
+    if (!cacheable) response.headers.set('Cloudflare-CDN-Cache-Control', 'no-store');
+    return response;
+  }
+}
+
+const anonymousCacheKey = (request) => {
+  const url = new URL(request.url);
+  return `${url.protocol}//${url.host}${url.pathname}`;
+};
+
+const isCachedGatedPath = (url, env) => String(env.GATED_CACHE_PATHS || '').split(',')
+  .map((path) => path.trim()).filter(Boolean)
+  .includes(url.pathname);
+
+const handleFetch = async (request, env, ctx) => {
+  const url = new URL(request.url);
+  if (!ctx?.exports?.Anonymous || url.port || request.headers.has('Authorization')
+    || !canContainGatedHtml(request, url) || !isCachedGatedPath(url, env)
+    || await isAuthenticated(request)) {
+    return handleRequest(request, env);
+  }
+
+  const anonymousRequest = new Request(request);
+  anonymousRequest.headers.delete('Cookie');
+  return ctx.exports.Anonymous.fetch(anonymousRequest, {
+    cf: { cacheKey: anonymousCacheKey(request) },
+  });
+};
+
+export default {
+  fetch: handleFetch,
+};
