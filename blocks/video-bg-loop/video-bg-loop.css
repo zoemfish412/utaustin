@@ -1,0 +1,113 @@
+/* full-bleed: the video spans the viewport width */
+main > .section > .video-bg-loop-wrapper {
+  width: 100%;
+  max-width: none;
+}
+
+/*
+ * Source (.block-bundle-utexas-hero-video): height calc(100vh - 46px), video sized to cover
+ * and centred. Below 1200px the source shows only the poster still (no video, no control).
+ */
+.video-bg-loop {
+  position: relative;
+  overflow: clip;
+}
+
+.video-bg-loop .video-bg-loop-media {
+  position: relative;
+  height: calc(100vh - 46px);
+}
+
+.video-bg-loop .video-bg-loop-poster,
+.video-bg-loop .video-bg-loop-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-bg-loop .video-bg-loop-poster picture,
+.video-bg-loop .video-bg-loop-poster img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.video-bg-loop .video-bg-loop-poster img {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
+.video-bg-loop .video-bg-loop-video {
+  display: none;
+  max-width: none;
+  object-fit: cover;
+  object-position: 50% 50%;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.video-bg-loop.is-playing .video-bg-loop-video,
+.video-bg-loop .video-bg-loop-video[src] {
+  opacity: 1;
+}
+
+/* source .video-wrapper.overlay-video::after, shown once the visitor pauses */
+.video-bg-loop .video-bg-loop-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(to right, rgb(0 0 0 / 52%), rgb(0 0 0 / 0%));
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-bg-loop.is-paused .video-bg-loop-media::after {
+  opacity: 1;
+}
+
+/* source #play-pause: 50px white circle icon at 75% opacity, no background */
+.video-bg-loop .video-bg-loop-toggle {
+  display: none;
+  position: absolute;
+  right: 38px;
+  bottom: 184px;
+  z-index: 1;
+  width: 50px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: var(--ut-white);
+  opacity: 0.75;
+  cursor: pointer;
+  transition: background-color 0.33s ease-out, color 0.33s ease-out, border-color 0.33s ease-out;
+}
+
+.video-bg-loop .video-bg-loop-toggle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: currentcolor;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M25,50A25.007,25.007,0,0,1,15.268,1.965,25.006,25.006,0,0,1,34.731,48.035,24.844,24.844,0,0,1,25,50ZM21.363,12.5c-.166,0-.265.121-.265.323,0,.028,0,10.862,0,12.1s0,12.069,0,12.1a.382.382,0,0,0,.1.278.308.308,0,0,0,.22.088.291.291,0,0,0,.21-.084L33.011,25.239a.43.43,0,0,0,0-.566L21.627,12.611A.38.38,0,0,0,21.363,12.5Z"/></svg>') center / 50px 50px no-repeat;
+}
+
+.video-bg-loop.is-playing .video-bg-loop-toggle::before {
+  mask-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><path d="M25,50A25.007,25.007,0,0,1,15.269,1.965,25.006,25.006,0,0,1,34.731,48.035,24.844,24.844,0,0,1,25,50Zm3.907-37.5a.71.71,0,0,0-.781.6V36.9a.71.71,0,0,0,.781.6h4.688a.71.71,0,0,0,.781-.6V13.1a.71.71,0,0,0-.781-.6Zm-12.5,0a.71.71,0,0,0-.781.6V36.9a.71.71,0,0,0,.781.6h4.688a.71.71,0,0,0,.781-.6V13.1a.71.71,0,0,0-.781-.6Z"/></svg>');
+}
+
+@media (width >= 1200px) {
+  .video-bg-loop .video-bg-loop-video,
+  .video-bg-loop .video-bg-loop-toggle {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .video-bg-loop .video-bg-loop-video,
+  .video-bg-loop .video-bg-loop-toggle {
+    transition: none;
+  }
+}

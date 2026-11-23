@@ -23,3 +23,5 @@ tasks/todo.md
 
 # customer-demo skill run state (resume file, local only)
 .customer-demo/
+migration-work/footer-validation/
+migration-work/navigation-validation/

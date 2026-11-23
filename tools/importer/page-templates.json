@@ -1,0 +1,198 @@
+{
+  "templates": [
+    {
+      "name": "home",
+      "urls": [
+        "https://www.utexas.edu/"
+      ],
+      "representativeUrl": "https://www.utexas.edu/",
+      "description": "University homepage: announcement bar, hero video, headline hero, stories, promo, impact rows and outro",
+      "blocks": [
+        {
+          "name": "columns-announcement",
+          "instances": [
+            ".block-coresite-news-alert",
+            "#block-coretheme-homepagecriticalnewsalert"
+          ]
+        },
+        {
+          "name": "video-bg-loop",
+          "instances": [
+            ".block-bundle-utexas-hero-video",
+            "#block-coretheme-theuniversityoftexasataustin"
+          ]
+        },
+        {
+          "name": "hero-headline",
+          "instances": [
+            ".block-coresite-homepagehero",
+            "#block-coretheme-homepagehomepagehero"
+          ]
+        },
+        {
+          "name": "cards-stories",
+          "instances": [
+            ".university-stories",
+            "#block-coretheme-homepageuniversitystories .university-stories"
+          ]
+        },
+        {
+          "name": "columns-promo",
+          "instances": [
+            "#block-coretheme-homepagemidpagepromo"
+          ]
+        },
+        {
+          "name": "columns-impact",
+          "instances": [
+            ".block-coresite-impact-1",
+            ".block-coresite-impact-2",
+            ".block-coresite-impact-3"
+          ]
+        },
+        {
+          "name": "hero-split-video",
+          "instances": [
+            ".block-homepage-outro",
+            "#block-coretheme-homepageoutro"
+          ]
+        }
+      ],
+      "urlPattern": "/",
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Longhorn Lights announcement bar",
+          "selector": [
+            ".region-site-announcement",
+            "#block-coretheme-homepagecriticalnewsalert"
+          ],
+          "style": "dark",
+          "blocks": [
+            "columns-announcement"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Hero video",
+          "selector": [
+            "#block-coretheme-theuniversityoftexasataustin"
+          ],
+          "style": null,
+          "blocks": [
+            "video-bg-loop"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-3",
+          "name": "What Starts Here hero",
+          "selector": [
+            "#block-coretheme-homepagehomepagehero"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-headline"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "University stories",
+          "selector": [
+            "#block-coretheme-homepageuniversitystories"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-stories"
+          ],
+          "defaultContent": [
+            "#block-coretheme-homepageuniversitystories .action-links"
+          ]
+        },
+        {
+          "id": "section-5",
+          "name": "Core curriculum promo",
+          "selector": [
+            "#block-coretheme-homepagemidpagepromo"
+          ],
+          "style": "beige",
+          "blocks": [
+            "columns-promo"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-6",
+          "name": "Boundless Ambition intro",
+          "selector": [
+            "#block-coretheme-homepageimpactintro",
+            ".block-coresite-impact-0"
+          ],
+          "style": "orange, centered",
+          "blocks": [],
+          "defaultContent": [
+            "#boundless-ambition-with-texas-roots",
+            "#ut-intro .row.justify-content-center"
+          ]
+        },
+        {
+          "id": "section-7",
+          "name": "The Longhorn Experience impact",
+          "selector": [
+            "#block-coretheme-homepageimpact1",
+            ".block-coresite-impact-1"
+          ],
+          "style": "light-grey-gradient",
+          "blocks": [
+            "columns-impact"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-8",
+          "name": "Big Ideas. Bigger Impact. impact",
+          "selector": [
+            "#block-coretheme-homepageimpact2",
+            ".block-coresite-impact-2"
+          ],
+          "style": "light-grey-gradient",
+          "blocks": [
+            "columns-impact"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-9",
+          "name": "Learning With Purpose impact",
+          "selector": [
+            "#block-coretheme-homepageimpact3",
+            ".block-coresite-impact-3"
+          ],
+          "style": "light-grey-gradient",
+          "blocks": [
+            "columns-impact"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-10",
+          "name": "For Texas, For the Future outro",
+          "selector": [
+            "#block-coretheme-homepageoutro",
+            ".block-homepage-outro"
+          ],
+          "style": null,
+          "blocks": [
+            "hero-split-video"
+          ],
+          "defaultContent": []
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "projectType": "da"
+  }
+}

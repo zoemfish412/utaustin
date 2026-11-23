@@ -1,0 +1,23 @@
+{
+  "variantName": "hero-split-video",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Photo-background banner with a text column (heading, paragraph, button, large stats) and a looping video at the side",
+    "source": "https://www.utexas.edu/",
+    "observed": [
+      "Background photo; h2 \"For Texas, For the Future\" + paragraph + CTA \"See Our Impact on Texas\" + stats; looping video at right"
+    ],
+    "sectionMetadata": []
+  },
+  "contentPattern": {
+    "structure": "row 1: background image; row 2: heading, paragraph, CTA link, stat paragraphs (**value** label) and a link to the video file (.mp4) \u2014 the video link may also sit in its own cell with an optional poster image",
+    "notes": [
+      "Text over a photo background: the photo belongs to its block (hero), so the section is not colored; the side video and stats are part of the same banner."
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Closing or outro banner pairing a message and figures with ambient video.",
+  "reuseGuidance": "Use for text plus side video over a photo; for a headline-only photo hero use hero-headline."
+}

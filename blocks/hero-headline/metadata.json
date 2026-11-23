@@ -1,0 +1,23 @@
+{
+  "variantName": "hero-headline",
+  "baseBlock": "hero",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Oversized stacked headline over a full-width background photo",
+    "source": "https://www.utexas.edu/",
+    "observed": [
+      "Background photo + h2 \"What Starts Here Changes The World\" (line breaks between words)"
+    ],
+    "sectionMetadata": []
+  },
+  "contentPattern": {
+    "structure": "row 1: background image; row 2: heading (use line breaks to stack words), optional paragraph, optional CTA link",
+    "notes": [
+      "Headline set over a photo background: a photo background belongs to its block (hero), so the section is not colored."
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Homepage or landing-page statement headline over a photo.",
+  "reuseGuidance": "Use when the headline is the main content; for text plus stats and a side video use hero-split-video."
+}
