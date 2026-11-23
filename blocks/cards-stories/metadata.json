@@ -1,0 +1,23 @@
+{
+  "variantName": "cards-stories",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Asymmetric linked news grid: one prominent lead story beside a stack of horizontal story cards",
+    "source": "https://www.utexas.edu/",
+    "observed": [
+      "Three linked news story items (image + headline), each linking to a UT News / event detail page; first item is the featured (prominent) one"
+    ],
+    "sectionMetadata": []
+  },
+  "contentPattern": {
+    "structure": "one row per story, two cells: image | headline linked to the story page; the first row is the lead story",
+    "notes": [
+      "Repeating look-alike items that each link to a detail page (news articles) and change over time: a dynamic list, so Cards."
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Featured news and event stories that change over time.",
+  "reuseGuidance": "Use for 2-4 linked stories with one lead; for uniform card grids use cards."
+}

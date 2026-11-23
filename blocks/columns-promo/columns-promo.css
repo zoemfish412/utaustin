@@ -1,0 +1,80 @@
+/* Columns Promo: limestone-beige inset panel (image | heading, text, CTA).
+   The burnt-orange band around it comes from the section style "beige". */
+.columns-promo {
+  background: var(--ut-beige);
+  color: var(--ut-charcoal);
+}
+
+.columns-promo .columns-promo-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns-promo .columns-promo-img-col {
+  padding: 0 12px;
+}
+
+.columns-promo .columns-promo-img-col img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.columns-promo .columns-promo-content {
+  min-width: 0;
+  padding: 32px 18px;
+}
+
+.columns-promo .columns-promo-content h2 {
+  margin: 0 0 8px;
+  color: var(--ut-charcoal);
+  font-size: 39px;
+  font-weight: 500;
+  line-height: 45.006px;
+  text-wrap: wrap;
+}
+
+.columns-promo .columns-promo-content p {
+  margin: 0 0 16px;
+  color: var(--ut-charcoal);
+  font-size: 16px;
+  line-height: 24px;
+  text-wrap: wrap;
+}
+
+.columns-promo .columns-promo-content .button-group {
+  margin: 0 0 16px;
+}
+
+.columns-promo .columns-promo-content .button-group > p.button-container {
+  margin: 0;
+}
+
+main .columns-promo a.button:any-link {
+  margin: 0 0 8.8px;
+}
+
+@media (width >= 900px) {
+  .columns-promo .columns-promo-row {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .columns-promo .columns-promo-img-col {
+    flex: 0 0 33.3333%;
+    max-width: 33.3333%;
+  }
+
+  .columns-promo .columns-promo-content {
+    flex: 0 0 66.6667%;
+    max-width: 66.6667%;
+  }
+}
+
+@media (width >= 1200px) {
+  .columns-promo .columns-promo-content p {
+    font-size: 18px;
+    line-height: 27px;
+  }
+}

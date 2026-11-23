@@ -1,0 +1,27 @@
+{
+  "variantName": "columns-promo",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Inset panel with an image beside a heading, paragraph and button",
+    "source": "https://www.utexas.edu/",
+    "observed": [
+      "Image | h2 \"A Common Foundation for Every Longhorn\" + paragraph + CTA \"More About the New Core\""
+    ],
+    "sectionMetadata": [
+      {
+        "style": "beige"
+      }
+    ]
+  },
+  "contentPattern": {
+    "structure": "one row, two cells: image | heading, paragraph, CTA link",
+    "notes": [
+      "Fixed side-by-side layout of an image and text that never wraps; section hint is block."
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Single mid-page promotion of a program or initiative.",
+  "reuseGuidance": "Use for one image-and-text promo; when the text column carries stats use columns-impact."
+}

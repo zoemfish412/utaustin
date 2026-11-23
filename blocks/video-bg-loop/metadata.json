@@ -1,0 +1,23 @@
+{
+  "variantName": "video-bg-loop",
+  "baseBlock": "video",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Full-bleed muted, looping background video with poster image and a pause/play toggle; no text",
+    "source": "https://www.utexas.edu/",
+    "observed": [
+      "Background loop video (poster image + mp4 link) with pause/play control"
+    ],
+    "sectionMetadata": []
+  },
+  "contentPattern": {
+    "structure": "row 1: poster image + link to the video file (.mp4/.webm), optional link to a .vtt description track; the video link text is the video title. Optional row 2: pause label | play label for the toggle button",
+    "notes": [
+      "Embedded video with play/pause control is an interactive component an author cannot type as default content; Video block from the library takes the poster and video source."
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Decorative ambient campus video at the top of a page.",
+  "reuseGuidance": "Use for text-free background video; for a video beside text use hero-split-video, for embeds (YouTube) use embed."
+}

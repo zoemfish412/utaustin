@@ -1,3 +1,5 @@
+@import url('brand.css');
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -27,24 +29,24 @@
    * To re-theme for a customer, re-assign the values only; never rename them.
    * Keep the ink ramp dark and the stone ramp light so text contrast holds.
    */
-  --ink-1000: #07060d;
-  --ink-950: #0e0c1a;
-  --ink-900: #151325;
-  --ink-800: #211e36;
-  --ink-700: #322e4b;
-  --stone-600: #565b6b;
-  --stone-500: #7a7f8f;
-  --stone-400: #a3a7b4;
-  --stone-300: #d0d3dc;
-  --stone-200: #e6e8ee;
-  --stone-100: #f2f3f7;
-  --stone-50: #f8f9fb;
+  --ink-1000: #1f262b;
+  --ink-950: #1f262b;
+  --ink-900: #1f262b;
+  --ink-800: #333f48;
+  --ink-700: #3e4549;
+  --stone-600: #5e686e;
+  --stone-500: #7d8a92;
+  --stone-400: #9cadb7;
+  --stone-300: #c4cdd4;
+  --stone-200: #e6ebed;
+  --stone-100: #f2f1ed;
+  --stone-50: #f9fafb;
   --white: #fff;
-  --flame-700: #b0240a;
-  --flame-600: #d6300d;
-  --flame-500: #ff4f1a;
-  --flame-400: #ff7a45;
-  --flame-100: #ffe8de;
+  --flame-700: #9d4700;
+  --flame-600: #bf5700;
+  --flame-500: #bf5700;
+  --flame-400: #f8971f;
+  --flame-100: #fef7ed;
   --magenta-600: #c2185b;
   --magenta-500: #ff2e7e;
   --volt-400: #d6ff3d;
@@ -57,7 +59,7 @@
   --amber-600: #8a5a00;
   --amber-100: #fdf1d6;
   --gradient-vivid: linear-gradient(120deg, var(--flame-500) 0%, var(--magenta-500) 50%, var(--aurora-500) 100%);
-  --brand-font-sans: montserrat, montserrat-fallback, system-ui, sans-serif;
+  --brand-font-sans: var(--body-font-family);
 
   /* BRAND TOKENS:end */
 
@@ -133,10 +135,16 @@
   --duration-2: 220ms;
   --duration-3: 420ms;
 
-  /* chrome */
-  --announce-h: 2.5rem;
-  --header-h: 4.5rem;
+  /* chrome: header is a 50px bar on mobile, 46px utility bar + 115px main bar from 1200px */
+  --announce-h: 0px;
+  --header-h: 50px;
   --chrome-h: calc(var(--announce-h) + var(--header-h));
+}
+
+@media (width >= 1200px) {
+  :root {
+    --header-h: 161px;
+  }
 }
 
 /* ---- 3. Semantic mappings: light (default) ---- */
@@ -260,22 +268,22 @@ main > .section.flame,
 /* metric-matched fallbacks minimise CLS while the web fonts load
    (bold has its own face so headings don't use narrower synthetic bold) */
 @font-face {
-  font-family: montserrat-fallback;
+  font-family: libre-franklin-fallback;
   font-weight: 100 500;
   src: local('Arial'), local('ArialMT');
-  size-adjust: 112.5%;
-  ascent-override: 85%;
-  descent-override: 22%;
+  size-adjust: 104%;
+  ascent-override: 92%;
+  descent-override: 24%;
   line-gap-override: 0%;
 }
 
 @font-face {
-  font-family: montserrat-fallback;
+  font-family: libre-franklin-fallback;
   font-weight: 600 900;
   src: local('Arial Bold'), local('Arial-BoldMT');
-  size-adjust: 113%;
-  ascent-override: 85%;
-  descent-override: 22%;
+  size-adjust: 102%;
+  ascent-override: 93%;
+  descent-override: 24%;
   line-gap-override: 0%;
 }
 
@@ -318,10 +326,10 @@ body {
   margin: 0;
   min-height: 100vh;
   background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-sans);
-  font-size: var(--step-0);
-  line-height: var(--leading-body);
+  color: var(--text-color-ut);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m);
+  line-height: var(--body-line-height);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizelegibility;
 }
@@ -360,34 +368,25 @@ h4,
 h5,
 h6 {
   margin: 0 0 0.5em;
-  color: var(--color-text-strong);
-  font-family: var(--font-display);
+  color: var(--heading-color);
+  font-family: var(--heading-font-family);
   font-weight: var(--weight-bold);
-  line-height: var(--leading-snug);
-  letter-spacing: var(--tracking-snug);
+  line-height: 1.18;
+  letter-spacing: normal;
   text-wrap: balance;
   scroll-margin: calc(var(--header-h) + 1rem);
 }
 
 h1 {
-  font-size: var(--step-5);
-  font-weight: var(--weight-black);
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-tight);
-}
-
-h2 {
-  font-size: var(--step-4);
-  font-weight: var(--weight-black);
+  font-size: var(--heading-font-size-xxl);
   line-height: 1.1;
-  letter-spacing: var(--tracking-tight);
 }
 
-h3 { font-size: var(--step-2); }
-h4 { font-size: var(--step-1); }
-
-h5,
-h6 { font-size: var(--step-0); }
+h2 { font-size: var(--heading-font-size-xl); }
+h3 { font-size: var(--heading-font-size-l); }
+h4 { font-size: var(--heading-font-size-m); }
+h5 { font-size: var(--heading-font-size-s); }
+h6 { font-size: var(--heading-font-size-xs); }
 
 p,
 ul,
@@ -447,21 +446,22 @@ hr {
 }
 
 a:any-link {
-  color: var(--color-link);
+  color: var(--link-color);
   text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.15em;
   overflow-wrap: break-word;
   transition: color var(--duration-1) var(--ease-out);
 }
 
 a:hover {
-  color: var(--color-link-hover);
+  color: var(--link-hover-color);
 }
 
+/* UT focus: thin light outline + dark ring */
 :focus-visible {
-  outline: none;
-  box-shadow: var(--focus-ring);
-  border-radius: var(--radius-xs);
+  outline: 1px solid var(--ut-shade-t20);
+  box-shadow: 0 0 0 1px var(--ut-focus-dark);
+  border-radius: 0;
 }
 
 ::selection {
@@ -695,13 +695,13 @@ main > div {
 }
 
 main > .section {
-  padding-block: var(--gap-3xl);
+  padding-block: var(--section-padding);
   background: var(--color-bg);
   color: var(--color-text);
 }
 
 main > .section:first-child {
-  padding-block-start: var(--gap-l);
+  padding-block-start: 0;
 }
 
 /* metadata-only sections are emptied by the pipeline */
@@ -715,7 +715,7 @@ main > .section:has(> .campaign-wrapper:only-child) {
 }
 
 main > .section > div {
-  width: min(100% - 2 * var(--gutter), var(--container));
+  width: min(100% - 2 * var(--gutter), var(--content-max-width));
   margin-inline: auto;
 }
 
@@ -1217,6 +1217,260 @@ main > .section.head-row > .default-content-wrapper:first-child > p:nth-child(2)
 
   main > .section.overlap {
     margin-top: -12rem;
+  }
+}
+
+/* stylelint-enable no-descending-specificity */
+
+/* ==========================================================================
+   UT Austin design layer (values measured on https://www.utexas.edu/)
+   Typography, links, buttons (ut-btn) and section styles:
+   dark · beige · orange · centered · light-grey-gradient
+   ========================================================================== */
+
+/* stylelint-disable no-descending-specificity -- UT layer intentionally overrides the base design system */
+
+main p {
+  line-height: 1.5;
+}
+
+/* ---- Buttons: every authored CTA renders as the UT button (ut-btn) ----
+   plain link = ut-btn · **bold** = ut-btn · _italic_ = ut-btn--secondary */
+main .button-container {
+  margin: 8px 0 0;
+}
+
+main a.button:any-link,
+main a.button.primary:any-link,
+main a.button.secondary:any-link {
+  --btn-bg: var(--ut-burntorange);
+  --btn-fg: var(--ut-white);
+  --btn-border: var(--ut-burntorange);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 0;
+  max-width: 100%;
+  margin: 0;
+  padding: var(--button-padding);
+  border: 2px solid var(--btn-border);
+  border-radius: var(--button-radius);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-family: var(--body-font-family);
+  font-size: var(--button-font-size);
+  font-style: normal;
+  font-weight: var(--button-font-weight);
+  letter-spacing: normal;
+  line-height: 24px;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+  transition: var(--button-transition);
+}
+
+main a.button.secondary:any-link {
+  --btn-bg: var(--ut-white);
+  --btn-fg: var(--ut-burntorange);
+}
+
+/* angle-right chevron after the label (ut-cta-link--angle-right) */
+main a.button:any-link::after,
+main a.button.primary:any-link::after,
+main a.button.secondary:any-link::after {
+  content: '';
+  flex: none;
+  width: 0.45em;
+  height: 0.45em;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  color: inherit;
+  transform: rotate(45deg);
+  transition: none;
+}
+
+main a.button:any-link:hover,
+main a.button:any-link:focus-visible,
+main a.button.primary:any-link:hover,
+main a.button.secondary:any-link:hover,
+main a.button.secondary:any-link:focus-visible {
+  --btn-bg: var(--ut-burntorange-s20);
+  --btn-fg: var(--ut-white);
+  --btn-border: var(--ut-burntorange-s20);
+
+  color: var(--btn-fg);
+}
+
+main a.button:any-link:hover::after {
+  transform: rotate(45deg);
+}
+
+/* ---- Sections ---- */
+
+/* dark: charcoal band with white text (announcement bar) */
+main > .section.dark {
+  --color-text: var(--ut-white);
+  --color-text-muted: var(--ut-white);
+  --color-text-strong: var(--ut-white);
+  --heading-color: var(--ut-white);
+  --link-color: var(--ut-white);
+  --link-hover-color: var(--ut-white);
+
+  background: var(--ut-charcoal);
+  color: var(--ut-white);
+}
+
+/* beige: burnt-orange band; the promo block draws the limestone-beige panel inside it.
+   The panel spans the viewport on mobile and steps through the source container widths. */
+main > .section.beige {
+  --heading-color: var(--ut-charcoal);
+  --text-color-ut: var(--ut-charcoal);
+
+  background: var(--ut-burntorange);
+  color: var(--ut-charcoal);
+}
+
+main > .section.beige > div {
+  width: 100%;
+}
+
+@media (width >= 600px) {
+  main > .section.beige > div {
+    width: min(100%, 540px);
+  }
+}
+
+@media (width >= 900px) {
+  main > .section.beige > div {
+    width: min(100%, 720px);
+  }
+}
+
+@media (width >= 1200px) {
+  main > .section.beige > div {
+    width: min(100%, var(--content-max-width));
+  }
+}
+
+/* orange: burnt-orange band with the decorative diagonal pattern, white uppercase display type */
+main > .section.orange {
+  --color-text: var(--ut-white);
+  --color-text-muted: var(--ut-white);
+  --color-text-strong: var(--ut-white);
+  --heading-color: var(--ut-white);
+  --link-color: var(--ut-white);
+  --link-hover-color: var(--ut-white);
+
+  padding-block: 100px;
+  background: var(--ut-burntorange) url('images/section-diagonals.svg') no-repeat 50% 100% / cover;
+  color: var(--ut-white);
+}
+
+main > .section.orange > .default-content-wrapper > h2 {
+  margin: 0 0 20px;
+  font-family: var(--display-font-family);
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+main > .section.orange:not(.prose) > .default-content-wrapper > p:not(.button-container) {
+  margin: 0 auto 30px;
+  color: var(--ut-white);
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+@media (width >= 900px) {
+  main > .section.orange {
+    padding-block: 180px 50px;
+  }
+
+  main > .section.orange > .default-content-wrapper > h2 {
+    margin-bottom: 50px;
+    font-size: 65px;
+    line-height: 0.86;
+  }
+
+  main > .section.orange:not(.prose) > .default-content-wrapper > p:not(.button-container) {
+    font-size: 25px;
+  }
+}
+
+main > .section.centered > .default-content-wrapper {
+  text-align: center;
+}
+
+main > .section.centered > .default-content-wrapper > p {
+  max-width: 665px;
+  margin-inline: auto;
+}
+
+/* light-grey-gradient: white fading to light grey (impact rows) */
+main > .section.light-grey-gradient {
+  background: linear-gradient(var(--ut-white) 50%, var(--ut-light-grey) 100%);
+}
+
+/* hero headline over the hero video (source: the homepage hero starts at the top of the
+   calc(100vh - 46px) video and its headline rides over it; the sunrise photo begins below
+   the video). The section is transparent and click-through so the video control stays usable;
+   --hero-headline-overlap tells the block where its photo starts. */
+main > .section.video-bg-loop-container + .section.hero-headline-container {
+  --hero-headline-overlap: calc(100vh - 46px);
+
+  position: relative;
+  z-index: 1;
+  margin-top: calc(-1 * var(--hero-headline-overlap));
+  background: transparent;
+  pointer-events: none;
+}
+
+/* university stories: burnt-orange band (the hero photo fades into it), 1116px content,
+   white "UT News · Texas Today Calendar" external links below the cards */
+main > .section.cards-stories-container {
+  padding-block-end: 50px;
+  background: var(--ut-burntorange);
+}
+
+main > .section.cards-stories-container > div {
+  width: min(100% - 24px, var(--content-max-width) - 24px);
+}
+
+main > .section.cards-stories-container > div + div {
+  margin-top: 0;
+}
+
+main > .section.cards-stories-container .default-content-wrapper a:any-link {
+  display: block;
+  color: var(--ut-white);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+}
+
+main > .section.cards-stories-container .default-content-wrapper a:any-link:hover {
+  color: var(--ut-white);
+  text-decoration: underline;
+}
+
+main > .section.cards-stories-container .default-content-wrapper a:any-link::after {
+  content: '';
+  margin-left: 5px;
+  padding: 0 0.5em;
+  background-color: currentcolor;
+  vertical-align: middle;
+  mask: url('images/external-link.svg') no-repeat 0 center / cover;
+}
+
+@media (width >= 600px) {
+  main > .section.cards-stories-container .default-content-wrapper a:any-link {
+    display: inline;
+    margin-right: 10px;
   }
 }
 

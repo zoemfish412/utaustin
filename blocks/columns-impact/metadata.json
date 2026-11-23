@@ -1,0 +1,37 @@
+{
+  "variantName": "columns-impact",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Tall image beside a heading, paragraph, CTA and a row of large stats",
+    "source": "https://www.utexas.edu/",
+    "observed": [
+      "Image | h2 \"The Longhorn Experience\" + paragraph + CTA \"Be a Longhorn\" + stats (#1 Public University in Texas; #8 Public University in the U.S.)",
+      "Image | h2 \"Big Ideas. Bigger Impact.\" + paragraph + CTA \"Learn More About UT Research\" + stats (1,291 Patents in the last 10 years; 4,400 Active externally funded projects in FY25; $1.37B Total expenditures in FY25)",
+      "Image | h2 \"Learning With Purpose\" + paragraph + CTA \"Explore Degree Programs\" + stats (70 Undergraduate and graduate programs in the top 10; 170+ Areas of study)"
+    ],
+    "sectionMetadata": [
+      {
+        "style": "light-grey-gradient"
+      },
+      {
+        "style": "light-grey-gradient"
+      },
+      {
+        "style": "light-grey-gradient"
+      }
+    ]
+  },
+  "contentPattern": {
+    "structure": "one row, two cells: image | heading, paragraph, CTA link, then stat paragraphs that start with a bold value followed by a label (e.g. **#1** Public University in Texas)",
+    "notes": [
+      "Fixed image-beside-text layout that never wraps. Stat values stay paragraphs (bold value + label), not headings.",
+      "Fixed image-beside-text layout that never wraps. Stat values stay paragraphs (bold value + label), not headings.",
+      "Fixed image-beside-text layout that never wraps. Stat values stay paragraphs (bold value + label), not headings."
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Impact or key-facts storytelling panels with figures.",
+  "reuseGuidance": "Use when an image-and-text panel needs headline figures; without stats use columns-promo."
+}

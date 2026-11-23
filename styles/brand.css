@@ -1,0 +1,82 @@
+/*
+ * UT Austin brand tokens, extracted from https://www.utexas.edu/ (computed styles).
+ * styles.css maps its design-system primitives onto these values.
+ */
+
+:root {
+  /* palette */
+  --ut-burntorange: #bf5700;
+  --ut-burntorange-s10: #ae4f00;
+  --ut-burntorange-s20: #9d4700;
+  --ut-charcoal: #333f48;
+  --ut-charcoal-s40: #1f262b;
+  --ut-charcoal-t20: #ebeced;
+  --ut-tangerine: #f8971f;
+  --ut-limestone: #d6d2c4;
+  --ut-limestone-t60: #e6e4dc;
+  --ut-limestone-t40: #f2f1ed;
+  --ut-beige: #e6e4db;
+  --ut-shade: #9cadb7;
+  --ut-shade-t20: #f9fafb;
+  --ut-shade-t40: #e6ebed;
+  --ut-shade-t60: #c4cdd4;
+  --ut-shade-s20: #7d8a92;
+  --ut-shade-s40: #5e686e;
+  --ut-shade-s60: #3e4549;
+  --ut-light-grey: #f5f5f5;
+  --ut-floral-white: #fef7ed;
+  --ut-focus-dark: #193146;
+  --ut-white: #fff;
+
+  /* semantic */
+  --background-color: var(--ut-white);
+  --text-color-ut: var(--ut-charcoal-s40);
+  --heading-color: var(--ut-charcoal);
+  --link-color: var(--ut-burntorange-s20);
+  --link-hover-color: var(--ut-burntorange);
+
+  /* fonts: LibreFrank on the source is Libre Franklin; benton-sans (Typekit, domain-locked)
+     falls back to Libre Franklin Black exactly like the source's own fallback stack */
+  --body-font-family: 'Libre Franklin', libre-franklin-fallback, arial, helvetica, sans-serif;
+  --heading-font-family: var(--body-font-family);
+  --display-font-family: 'Libre Franklin', libre-franklin-fallback, arial, sans-serif;
+
+  /* body sizes */
+  --body-font-size-m: 16px;
+  --body-font-size-l: 18px;
+  --body-font-size-xl: 20px;
+  --body-line-height: 1.5;
+
+  /* heading sizes (mobile first; desktop values set at 900px) */
+  --heading-font-size-xxl: 36px;
+  --heading-font-size-xl: 28px;
+  --heading-font-size-l: 22px;
+  --heading-font-size-m: 20px;
+  --heading-font-size-s: 18px;
+  --heading-font-size-xs: 16px;
+
+  /* spacing */
+  --content-max-width: 1140px;
+  --section-padding: 0;
+  --nav-height: 64px;
+
+  /* buttons (ut-btn) */
+  --button-radius: 4px;
+  --button-padding: 8px 16px;
+  --button-padding-l: 16px 80px;
+  --button-font-size: 16px;
+  --button-font-weight: 600;
+  --button-transition: background-color 0.33s ease-out, color 0.33s ease-out, border-color 0.33s ease-out;
+}
+
+@media (width >= 900px) {
+  :root {
+    --heading-font-size-xxl: 49px;
+    --heading-font-size-xl: 39px;
+    --heading-font-size-l: 25px;
+    --heading-font-size-m: 20px;
+    --heading-font-size-s: 18px;
+    --heading-font-size-xs: 16px;
+    --nav-height: 120px;
+  }
+}

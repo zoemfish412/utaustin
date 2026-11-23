@@ -1,0 +1,11 @@
+{
+  "type": "da",
+  "sites": {
+    "utaustin": {
+      "previewOrg": "zoemfish412",
+      "previewSite": "utaustin",
+      "contentHostUrl": "https://content.da.live/zoemfish412/utaustin/",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

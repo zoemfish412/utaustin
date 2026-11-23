@@ -1,0 +1,27 @@
+{
+  "variantName": "columns-announcement",
+  "baseBlock": "columns",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "purpose": "Slim full-width linked announcement bar: small logo graphic beside one line of text",
+    "source": "https://www.utexas.edu/",
+    "observed": [
+      "Linked banner: Longhorn Lights logo image beside the text \"Celebrate the season at Longhorn Lights | November 17 - January 1\""
+    ],
+    "sectionMetadata": [
+      {
+        "style": "dark"
+      }
+    ]
+  },
+  "contentPattern": {
+    "structure": "one row, two cells: logo image | one line of text containing a link (a single link makes the whole bar clickable)",
+    "notes": [
+      "Fixed pair of different content (logo graphic | text link) laid out side by side that never wraps; the section hint is block."
+    ]
+  },
+  "options": [],
+  "memberVariantIds": [],
+  "usage": "Site-wide or seasonal announcement bars that link to one destination.",
+  "reuseGuidance": "Use for a one-line linked notice with a logo; for image-and-text content panels use columns-promo."
+}
